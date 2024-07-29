@@ -8,6 +8,15 @@ RED='\033[0;32m'
 ORANGE='\033[0;33m'
 NC='\033[0m'
 
+commands=("curl" "cosign" "sha256sum" "tar")
+
+for cmd in "${commands[@]}"; do
+    if ! command -v $cmd >/dev/null 2>&1; then
+        echo "This utility requires \"$cmd\" to be installed"
+        exit 1
+    fi
+done
+
 if [ $# -ne 4 ]; then
     echo "Usage: $0 <repo> <release_version> <os> <arch>"
     exit 1
